@@ -40,6 +40,8 @@
   file:
     path: "{{ maestro_worker_log_dir }}"
     state: directory
+    owner: "{{ maestro_user }}"
+    group: "{{ maestro_user }}"
     mode: 0755
 
 - name: Configure maestro java
