@@ -1,9 +1,14 @@
 ---
 # defaults file for ansible-maestro-java
 maestro_user: maestro
+maestro_url: mqtt://localhost:1883
 
 maestro_worker_download_url: "{{ lookup('env','MAESTRO_WORKER_DOWNLOAD_URL') | default('', true) }}"
 maestro_worker_install_dest: "/home/{{ maestro_user }}/"
 maestro_worker_download_dest: /tmp/
 maestro_worker_install_link: maestro-worker
 maestro_worker_skip_install: false
+
+# The role: either sender of receiver
+maestro_worker_role: sender
+maestro_worker_start_server: true

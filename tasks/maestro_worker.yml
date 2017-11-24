@@ -28,13 +28,22 @@
 
 - name: Create link to maestro install dir {{ maestro_worker_install_dest }}/{{ maestro_worker_install_link }}
   file:
-    src: "{{ maestro_worker_install_dest }}/{{ maestro_worker_download_url | basename }}"
+    src: "{{ maestro_worker_install_dest }}/maestro-worker-1.2.0-SNAPSHOT"
     dest: "{{ maestro_worker_install_dest }}/{{ maestro_worker_install_link }}"
     state: link
     mode: 0755
     owner: "{{ maestro_user }}"
     group: "{{ maestro_user }}"
     force: true
+
+- name: Configure maestro java
+  template:
+    src: templates/maestro-worker-service.conf.j2
+    dest: "{{ maestro_worker_install_dest }}/{{ maestro_worker_install_link }}/config/maestro-worker-service.conf"
+    owner: "{{ maestro_user }}"
+    group: "{{ maestro_user }}"
+    mode: 0755
+  notify: "start maestro worker service"
 
 - name: Ensure correct ownership
   shell: chown -R "{{ maestro_user }}":"{{ maestro_user }}" {{ maestro_worker_install_dest }}/maestro*
