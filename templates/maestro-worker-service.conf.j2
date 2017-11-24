@@ -12,7 +12,7 @@ MAESTRO_RECEIVER_WORKER="net.orpiske.mpt.maestro.worker.jms.JMSReceiverWorker"
 MAESTRO_LOG_DIR="/home/{{ maestro_user }}/log/"
 
 # The role: either "sender" or "receiver" for Maestro Java
-MAESTRO_WORKER_ROLE="sender"
+MAESTRO_WORKER_ROLE="{{ maestro_worker_role }}"
 
 # If set will override local hostname detection
 # MAESTRO_LOCAL_HOSTNAME=""
