@@ -14,3 +14,10 @@
   become_user: "{{ maestro_user }}"
   command: "{{ maestro_worker_install_dest }}/{{ maestro_worker_install_link }}/bin/maestro-worker-service stop"
   listen: "stop maestro worker service"
+
+- name: restart maestro worker service
+  when: maestro_worker_restart_server is defined and maestro_worker_restart_server == true
+  become: true
+  become_user: "{{ maestro_user }}"
+  command: "{{ maestro_worker_install_dest }}/{{ maestro_worker_install_link }}/bin/maestro-worker-service restart"
+  listen: "restart maestro worker service"

@@ -43,7 +43,7 @@
     owner: "{{ maestro_user }}"
     group: "{{ maestro_user }}"
     mode: 0755
-  notify: "start maestro worker service"
+  notify: "restart maestro worker service"
 
 - name: Ensure correct ownership
   shell: chown -R "{{ maestro_user }}":"{{ maestro_user }}" {{ maestro_worker_install_dest }}/maestro*
