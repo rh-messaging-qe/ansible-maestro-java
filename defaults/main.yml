@@ -8,6 +8,7 @@ maestro_worker_install_dest: "/home/{{ maestro_user }}/"
 maestro_worker_download_dest: /tmp/
 maestro_worker_install_link: maestro-worker
 maestro_worker_skip_install: false
+maestro_worker_log_dir: "{{ maestro_worker_install_dest }}/log"
 
 # The role: either sender of receiver
 maestro_worker_role: sender

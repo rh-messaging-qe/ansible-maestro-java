@@ -36,6 +36,12 @@
     group: "{{ maestro_user }}"
     force: true
 
+- name: Create log directory
+  file:
+    path: "{{ maestro_worker_log_dir }}"
+    state: directory
+    mode: 0755
+
 - name: Configure maestro java
   template:
     src: templates/maestro-worker-service.conf.j2
