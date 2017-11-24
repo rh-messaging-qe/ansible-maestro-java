@@ -1,0 +1,40 @@
+---
+# tasks file for ansible-maestro-java
+- name: Ensure that maestro worker dependencies are installed (RPM-based)
+  when:
+    - ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat' or ansible_distribution == 'Fedora'
+  package: name="{{ maestro_worker_dependencies }}" state=present
+
+- debug:
+    msg: "Going to download & use maestro from {{ maestro_worker_download_url }}"
+
+- name: Create Maestro user
+  shell: id {{ maestro_user }} || (useradd -m -U {{ maestro_user }}  )
+
+- name: Download Maestro worker from {{ maestro_worker_download_url }}
+  get_url:
+    url: "{{ maestro_worker_download_url }}"
+    dest: "{{ maestro_worker_download_dest }}/{{ maestro_worker_download_url | basename}}"
+    force: no
+  register: dist_get
+
+- name: Unzip downloaded distribution to {{ maestro_worker_install_dest }}
+  unarchive:
+    src: "{{ maestro_worker_download_dest }}/{{ maestro_worker_download_url | basename }}"
+    dest: "{{ maestro_worker_install_dest }}/"
+    remote_src: True
+  register: dist_unzipped
+  when: dist_get.changed
+
+- name: Create link to maestro install dir {{ maestro_worker_install_dest }}/{{ maestro_worker_install_link }}
+  file:
+    src: "{{ maestro_worker_install_dest }}/{{ maestro_worker_download_url | basename }}"
+    dest: "{{ maestro_worker_install_dest }}/{{ maestro_worker_install_link }}"
+    state: link
+    mode: 0755
+    owner: "{{ maestro_user }}"
+    group: "{{ maestro_user }}"
+    force: true
+
+- name: Ensure correct ownership
+  shell: chown -R "{{ maestro_user }}":"{{ maestro_user }}" {{ maestro_worker_install_dest }}/maestro*

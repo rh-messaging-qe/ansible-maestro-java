@@ -1,0 +1,21 @@
+---
+- name: Bring up docker containers
+  hosts: localhost
+  vars:
+    inventory:
+      - name: cnt-centos7
+        image: "chrismeyers/centos7"
+      - name: cnt-centos6
+        image: "chrismeyers/centos6"
+  roles:
+    - role: provision_docker
+      provision_docker_inventory: "{{ inventory }}"
+      provision_docker_privileged: true
+
+- name: test
+  hosts: docker_containers
+  remote_user: root
+  vars:
+    maestro_worker_download_url: "{{ lookup('env','MAESTRO_WORKER_DOWNLOAD_URL') }}"
+  roles:
+    - ansible-maestro-java
