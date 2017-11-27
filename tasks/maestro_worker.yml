@@ -55,3 +55,7 @@
 
 - name: Ensure correct ownership
   shell: chown -R "{{ maestro_user }}":"{{ maestro_user }}" {{ maestro_worker_install_dest }}/maestro*
+
+- name: "Ensure that timezone is correctly set to {{ maestro_worker_timezone }}"
+  timezone:
+    name: "{{ maestro_worker_timezone }}"
