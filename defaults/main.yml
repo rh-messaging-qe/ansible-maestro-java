@@ -14,5 +14,6 @@ maestro_worker_log_dir: "{{ maestro_worker_install_dest }}/log"
 maestro_worker_role: sender
 maestro_worker_start_server: true
 maestro_worker_restart_server: true
+maestro_worker_stop_server: false
 
 maestro_worker_timezone: Europe/Prague
