@@ -1,6 +1,9 @@
 ---
 # tasks file for ansible-maestro-java
 - name: Ensure that maestro worker dependencies are installed (RPM-based)
+  tags:
+    - maestro
+    - dependencies
   when:
     - ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat' or ansible_distribution == 'Fedora'
   package: name="{{ maestro_worker_dependencies }}" state=present
@@ -9,9 +12,15 @@
     msg: "Going to download & use maestro from {{ maestro_worker_download_url }}"
 
 - name: Create Maestro user
+  tags:
+    - maestro
+    - user
   shell: id {{ maestro_user }} || (useradd -m -U {{ maestro_user }}  )
 
 - name: Download Maestro worker from {{ maestro_worker_download_url }}
+  tags:
+    - maestro
+    - download
   get_url:
     url: "{{ maestro_worker_download_url }}"
     dest: "{{ maestro_worker_download_dest }}/{{ maestro_worker_download_url | basename}}"
@@ -19,6 +28,9 @@
   register: dist_get
 
 - name: Unzip downloaded distribution to {{ maestro_worker_install_dest }}
+  tags:
+    - maestro
+    - unarchive
   unarchive:
     src: "{{ maestro_worker_download_dest }}/{{ maestro_worker_download_url | basename }}"
     dest: "{{ maestro_worker_install_dest }}/"
@@ -27,6 +39,9 @@
   when: dist_get.changed
 
 - name: Create link to maestro install dir {{ maestro_worker_install_dest }}/{{ maestro_worker_install_link }}
+  tags:
+    - maestro
+    - link
   file:
     src: "{{ maestro_worker_install_dest }}/maestro-worker-1.2.0-SNAPSHOT"
     dest: "{{ maestro_worker_install_dest }}/{{ maestro_worker_install_link }}"
@@ -37,6 +52,9 @@
     force: true
 
 - name: Create log directory
+  tags:
+    - maestro
+    - logdir
   file:
     path: "{{ maestro_worker_log_dir }}"
     state: directory
@@ -45,6 +63,9 @@
     mode: 0755
 
 - name: Configure maestro java
+  tags:
+    - maestro
+    - configure
   template:
     src: templates/maestro-worker-service.conf.j2
     dest: "{{ maestro_worker_install_dest }}/{{ maestro_worker_install_link }}/config/maestro-worker-service.conf"
@@ -54,8 +75,14 @@
   notify: "restart maestro worker service"
 
 - name: Ensure correct ownership
+  tags:
+    - maestro
+    - ownership
   shell: chown -R "{{ maestro_user }}":"{{ maestro_user }}" {{ maestro_worker_install_dest }}/maestro*
 
 - name: "Ensure that timezone is correctly set to {{ maestro_worker_timezone }}"
+  tags:
+    - maestro
+    - timezone
   timezone:
     name: "{{ maestro_worker_timezone }}"
