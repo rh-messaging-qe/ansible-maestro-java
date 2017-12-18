@@ -29,15 +29,21 @@
     src: "{{ maestro_exporter_download_dest }}/{{ maestro_exporter_download_url | basename }}"
     dest: "{{ maestro_exporter_install_dest }}/"
     remote_src: True
-  register: dist_unzipped
-  when: dist_get.changed
+    list_files: yes
+  register: archive_contents
+
+- debug: msg="Latest maestro worker directory created is {{ archive_contents.files[0] | dirname | dirname }}"
+  tags:
+  - maestro
+  - link
+
 
 - name: Create link to maestro install dir {{ maestro_exporter_install_dest }}/{{ maestro_exporter_install_link }}
   tags:
     - maestro
     - link
   file:
-    src: "{{ maestro_exporter_install_dest }}/maestro-exporter-1.2.0-SNAPSHOT"
+    src: "{{ maestro_exporter_install_dest }}/{{ archive_contents.files[0] | dirname | dirname  }}"
     dest: "{{ maestro_exporter_install_dest }}/{{ maestro_exporter_install_link }}"
     state: link
     mode: 0755
