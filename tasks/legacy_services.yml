@@ -1,0 +1,10 @@
+---
+- name: Stop legacy MPT services
+  ignore_errors: true
+  service:
+    name: {{ item }}
+    state: stopped
+  with_items:
+     - mpt-broker-inspector
+     - mpt-sender-daemon
+     - mpt-receiver-daemon

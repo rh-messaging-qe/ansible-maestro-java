@@ -3,6 +3,8 @@
 maestro_user: maestro
 maestro_url: mqtt://localhost:1883
 
+maestro_timezone: Europe/Prague
+
 maestro_worker_download_url: "{{ lookup('env','MAESTRO_WORKER_DOWNLOAD_URL') | default('', true) }}"
 maestro_worker_install_dest: "/home/{{ maestro_user }}/"
 maestro_worker_download_dest: /tmp/
@@ -16,4 +18,9 @@ maestro_worker_start_server: true
 maestro_worker_restart_server: true
 maestro_worker_stop_server: false
 
-maestro_worker_timezone: Europe/Prague
+
+maestro_exporter_download_url: "{{ lookup('env','MAESTRO_EXPORTER_DOWNLOAD_URL') | default('', true) }}"
+maestro_exporter_install_dest: "/home/{{ maestro_user }}/"
+maestro_exporter_download_dest: /tmp/
+maestro_exporter_install_link: maestro-exporter
+maestro_exporter_skip_install: true

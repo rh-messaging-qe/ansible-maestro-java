@@ -1,3 +1,4 @@
 ---
 # vars file for ansible-maestro-java
 maestro_worker_dependencies: wget, tar, unzip
+maestro_exporter_dependencies: wget, tar, unzip

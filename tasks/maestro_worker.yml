@@ -11,12 +11,6 @@
 - debug:
     msg: "Going to download & use maestro from {{ maestro_worker_download_url }}"
 
-- name: Create Maestro user
-  tags:
-    - maestro
-    - user
-  shell: id {{ maestro_user }} || (useradd -m -U {{ maestro_user }}  )
-
 - name: Download Maestro worker from {{ maestro_worker_download_url }}
   tags:
     - maestro
@@ -79,10 +73,3 @@
     - maestro
     - ownership
   shell: chown -R "{{ maestro_user }}":"{{ maestro_user }}" {{ maestro_worker_install_dest }}/maestro*
-
-- name: "Ensure that timezone is correctly set to {{ maestro_worker_timezone }}"
-  tags:
-    - maestro
-    - timezone
-  timezone:
-    name: "{{ maestro_worker_timezone }}"

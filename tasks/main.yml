@@ -12,6 +12,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+- name: Stop legacy services
+  tags:
+    - maestro
+    - legacy
+    - worker
+  include: legacy_services.yml
+
+- name: Execute Maestro common deployment routines
+  tags:
+    - maestro
+  include: maestro_common.yml
+
+
 - name: Install Maestro worker
+  tags:
+    - maestro
+    - java
+    - worker
   include: maestro_worker.yml
   when: maestro_worker_skip_install is defined and maestro_worker_skip_install == false
+
+
+- name: Install Maestro Exporter
+  tags:
+    - maestro
+    - java
+    - exporter
+  include: maestro_exporter.yml
+  when: maestro_exporter_skip_install is defined and maestro_exporter_skip_install == false

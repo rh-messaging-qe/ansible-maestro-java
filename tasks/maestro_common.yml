@@ -1,0 +1,12 @@
+- name: "Ensure that timezone is correctly set to {{ maestro_timezone }}"
+  tags:
+    - maestro
+    - timezone
+  timezone:
+    name: "{{ maestro_timezone }}"
+
+- name: Create Maestro user
+  tags:
+    - maestro
+    - user
+  shell: id {{ maestro_user }} || (useradd -m -U {{ maestro_user }}  )
