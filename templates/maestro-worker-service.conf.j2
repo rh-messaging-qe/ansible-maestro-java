@@ -2,11 +2,11 @@
 MAESTRO_BROKER="{{ maestro_url }}"
 
 # The sender worker
-MAESTRO_SENDER_WORKER="net.orpiske.mpt.maestro.worker.jms.JMSSenderWorker"
+MAESTRO_SENDER_WORKER=org.maestro.worker.jms.JMSSenderWorker"
 
 # The receiver worker (uncomment this and comment the variable above if
 # if you are configuring a receiver worker)
-MAESTRO_RECEIVER_WORKER="net.orpiske.mpt.maestro.worker.jms.JMSReceiverWorker"
+MAESTRO_RECEIVER_WORKER="org.maestro.worker.jms.JMSReceiverWorker"
 
 # The log directory
 MAESTRO_LOG_DIR="/home/{{ maestro_user }}/log/"
