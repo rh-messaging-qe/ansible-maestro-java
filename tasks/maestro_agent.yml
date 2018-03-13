@@ -1,0 +1,80 @@
+---
+# tasks file for ansible-maestro-java
+- name: Ensure that maestro agent dependencies are installed (RPM-based)
+  tags:
+    - maestro
+    - dependencies
+  when:
+    - ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat' or ansible_distribution == 'Fedora'
+  package: name="{{ maestro_agent_dependencies }}" state=present
+
+- debug:
+    msg: "Going to download & use maestro from {{ maestro_agent_download_url }}"
+
+- name: Download Maestro agent from {{ maestro_agent_download_url }}
+  tags:
+    - maestro
+    - download
+  get_url:
+    url: "{{ maestro_agent_download_url }}"
+    dest: "{{ maestro_agent_download_dest }}/{{ maestro_agent_download_url | basename}}"
+    force: yes
+  register: dist_get
+
+- name: Unzip downloaded distribution to {{ maestro_agent_install_dest }}
+  tags:
+    - maestro
+    - unarchive
+  unarchive:
+    src: "{{ maestro_agent_download_dest }}/{{ maestro_agent_download_url | basename }}"
+    dest: "{{ maestro_agent_install_dest }}/"
+    remote_src: True
+    list_files: yes
+  register: archive_contents
+
+- debug: msg="Latest maestro agent directory created is {{ archive_contents.files[0] | dirname | dirname }}"
+  tags:
+  - maestro
+  - link
+
+- name: Create link to maestro install dir {{ maestro_agent_install_dest }}/{{ maestro_agent_install_link }}
+  tags:
+    - maestro
+    - link
+  file:
+    src: "{{ maestro_agent_install_dest }}/{{ archive_contents.files[0] | dirname | dirname  }}"
+    dest: "{{ maestro_agent_install_dest }}/{{ maestro_agent_install_link }}"
+    state: link
+    mode: 0755
+    owner: "{{ maestro_user }}"
+    group: "{{ maestro_user }}"
+    force: true
+
+- name: Create log directory
+  tags:
+    - maestro
+    - logdir
+  file:
+    path: "{{ maestro_agent_log_dir }}"
+    state: directory
+    owner: "{{ maestro_user }}"
+    group: "{{ maestro_user }}"
+    mode: 0755
+
+- name: Configure maestro java
+  tags:
+    - maestro
+    - configure
+  template:
+    src: templates/maestro-agent-service.conf.j2
+    dest: "{{ maestro_agent_install_dest }}/{{ maestro_agent_install_link }}/config/maestro-agent-service.conf"
+    owner: "{{ maestro_user }}"
+    group: "{{ maestro_user }}"
+    mode: 0755
+  notify: "restart maestro agent service"
+
+- name: Ensure correct ownership
+  tags:
+    - maestro
+    - ownership
+  shell: chown -R "{{ maestro_user }}":"{{ maestro_user }}" {{ maestro_agent_install_dest }}/maestro*

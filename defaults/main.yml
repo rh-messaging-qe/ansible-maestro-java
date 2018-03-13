@@ -24,3 +24,18 @@ maestro_exporter_install_dest: "/home/{{ maestro_user }}/"
 maestro_exporter_download_dest: /tmp/
 maestro_exporter_install_link: maestro-exporter
 maestro_exporter_skip_install: true
+
+
+# Maestro Agent default variables
+maestro_agent_download_url: "{{ lookup('env','MAESTRO_AGENT_DOWNLOAD_URL') | default('', true) }}"
+maestro_agent_install_dest: "/home/{{ maestro_user }}/"
+maestro_agent_download_dest: /tmp/
+maestro_agent_install_link: maestro-agent
+maestro_agent_skip_install: false
+maestro_agent_log_dir: "{{ maestro_agent_install_dest }}/log"
+
+# The role: agent
+maestro_agent_role: agent
+maestro_agent_start_server: true
+maestro_agent_restart_server: true
+maestro_agent_stop_server: false
