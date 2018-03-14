@@ -24,3 +24,4 @@ maestro_exporter_install_dest: "/home/{{ maestro_user }}/"
 maestro_exporter_download_dest: /tmp/
 maestro_exporter_install_link: maestro-exporter
 maestro_exporter_skip_install: true
+maestro_exporter_restart_server: true
