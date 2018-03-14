@@ -21,3 +21,10 @@
   become_user: "{{ maestro_user }}"
   command: "{{ maestro_worker_install_dest }}/{{ maestro_worker_install_link }}/bin/maestro-worker-service restart"
   listen: "restart maestro worker service"
+
+- name: restart maestro exporter service
+  when: maestro_exporter_restart_server is defined and maestro_exporter_restart_server == true
+  become: true
+  become_user: "{{ maestro_user }}"
+  command: "{{ maestro_exporter_install_dest }}/{{ maestro_exporter_install_link }}/bin/maestro-exporter-service restart"
+  listen: "restart maestro exporter service"
