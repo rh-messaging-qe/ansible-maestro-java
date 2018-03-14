@@ -32,7 +32,7 @@
     list_files: yes
   register: archive_contents
 
-- debug: msg="Latest maestro worker directory created is {{ archive_contents.files[0] | dirname | dirname }}"
+- debug: msg="Latest maestro exporter directory created is {{ archive_contents.files[0] | dirname | dirname }}"
   tags:
   - maestro
   - link
