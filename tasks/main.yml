@@ -41,3 +41,11 @@
     - exporter
   include: maestro_exporter.yml
   when: maestro_exporter_skip_install is defined and maestro_exporter_skip_install == false
+
+  - name: Install Maestro Agent
+    tags:
+      - maestro
+      - java
+      - agent
+    include: maestro_agent.yml
+    when: maestro_agent_skip_install is defined and maestro_agent_skip_install == false
