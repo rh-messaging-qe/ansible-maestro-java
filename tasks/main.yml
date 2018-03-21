@@ -34,7 +34,16 @@
   when: maestro_worker_skip_install is defined and maestro_worker_skip_install == false
 
 
-- name: Install Maestro Exporter
+- name: Install Maestro inspector
+  tags:
+    - maestro
+    - java
+    - inspector
+  include: maestro_inspector.yml
+  when: maestro_inspector_skip_install is defined and maestro_inspector_skip_install == false
+
+
+- name: Install Maestro exporter
   tags:
     - maestro
     - java

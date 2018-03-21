@@ -1,0 +1,80 @@
+---
+# tasks file for ansible-maestro-java
+- name: Ensure that maestro inspector dependencies are installed (RPM-based)
+  tags:
+    - maestro
+    - dependencies
+  when:
+    - ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat' or ansible_distribution == 'Fedora'
+  package: name="{{ maestro_inspector_dependencies }}" state=present
+
+- debug:
+    msg: "Going to download & use maestro from {{ maestro_inspector_download_url }}"
+
+- name: Download Maestro inspector from {{ maestro_inspector_download_url }}
+  tags:
+    - maestro
+    - download
+  get_url:
+    url: "{{ maestro_inspector_download_url }}"
+    dest: "{{ maestro_inspector_download_dest }}/{{ maestro_inspector_download_url | basename}}"
+    force: yes
+  register: dist_get
+
+- name: Unzip downloaded distribution to {{ maestro_inspector_install_dest }}
+  tags:
+    - maestro
+    - unarchive
+  unarchive:
+    src: "{{ maestro_inspector_download_dest }}/{{ maestro_inspector_download_url | basename }}"
+    dest: "{{ maestro_inspector_install_dest }}/"
+    remote_src: True
+    list_files: yes
+  register: archive_contents
+
+- debug: msg="Latest maestro inspector directory created is {{ archive_contents.files[0] | dirname | dirname }}"
+  tags:
+  - maestro
+  - link
+
+- name: Create link to maestro install dir {{ maestro_inspector_install_dest }}/{{ maestro_inspector_install_link }}
+  tags:
+    - maestro
+    - link
+  file:
+    src: "{{ maestro_inspector_install_dest }}/{{ archive_contents.files[0] | dirname | dirname  }}"
+    dest: "{{ maestro_inspector_install_dest }}/{{ maestro_inspector_install_link }}"
+    state: link
+    mode: 0755
+    owner: "{{ maestro_user }}"
+    group: "{{ maestro_user }}"
+    force: true
+
+- name: Create log directory
+  tags:
+    - maestro
+    - logdir
+  file:
+    path: "{{ maestro_inspector_log_dir }}"
+    state: directory
+    owner: "{{ maestro_user }}"
+    group: "{{ maestro_user }}"
+    mode: 0755
+
+- name: Configure maestro java
+  tags:
+    - maestro
+    - configure
+  template:
+    src: templates/maestro-inspector-service.conf.j2
+    dest: "{{ maestro_inspector_install_dest }}/{{ maestro_inspector_install_link }}/config/maestro-inspector-service.conf"
+    owner: "{{ maestro_user }}"
+    group: "{{ maestro_user }}"
+    mode: 0755
+  notify: "restart maestro inspector service"
+
+- name: Ensure correct ownership
+  tags:
+    - maestro
+    - ownership
+  shell: chown -R "{{ maestro_user }}":"{{ maestro_user }}" {{ maestro_inspector_install_dest }}/maestro*

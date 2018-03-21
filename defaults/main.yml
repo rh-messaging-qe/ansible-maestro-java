@@ -18,10 +18,16 @@ maestro_worker_start_server: true
 maestro_worker_restart_server: true
 maestro_worker_stop_server: false
 
-
 maestro_exporter_download_url: "{{ lookup('env','MAESTRO_EXPORTER_DOWNLOAD_URL') | default('', true) }}"
 maestro_exporter_install_dest: "/home/{{ maestro_user }}/"
 maestro_exporter_download_dest: /tmp/
 maestro_exporter_install_link: maestro-exporter
 maestro_exporter_skip_install: true
 maestro_exporter_restart_server: true
+
+maestro_inspector_download_url: "{{ lookup('env','MAESTRO_INSPECTOR_DOWNLOAD_URL') | default('', true) }}"
+maestro_inspector_install_dest: "/home/{{ maestro_user }}/"
+maestro_inspector_download_dest: /tmp/
+maestro_inspector_install_link: maestro-inspector
+maestro_inspector_skip_install: true
+maestro_inspector_log_dir: "{{ maestro_inspector_install_dest }}/log"
