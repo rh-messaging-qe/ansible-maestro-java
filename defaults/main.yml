@@ -31,3 +31,10 @@ maestro_inspector_download_dest: /tmp/
 maestro_inspector_install_link: maestro-inspector
 maestro_inspector_skip_install: true
 maestro_inspector_log_dir: "{{ maestro_inspector_install_dest }}/log"
+
+maestro_agent_download_url: "{{ lookup('env','MAESTRO_AGENT_DOWNLOAD_URL') | default('', true) }}"
+maestro_agent_install_dest: "/home/{{ maestro_user }}/"
+maestro_agent_download_dest: /tmp/
+maestro_agent_install_link: maestro-agent
+maestro_agent_skip_install: true
+maestro_agent_log_dir: "{{ maestro_agent_install_dest }}/log"

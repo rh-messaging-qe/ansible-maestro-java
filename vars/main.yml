@@ -3,3 +3,4 @@
 maestro_worker_dependencies: wget, tar, unzip
 maestro_exporter_dependencies: wget, tar, unzip
 maestro_inspector_dependencies: wget, tar, unzip
+maestro_agent_dependencies: wget, tar, unzip

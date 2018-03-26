@@ -43,6 +43,15 @@
   when: maestro_inspector_skip_install is defined and maestro_inspector_skip_install == false
 
 
+- name: Install Maestro agent
+  tags:
+    - maestro
+    - java
+    - agent
+  include: maestro_agent.yml
+  when: maestro_agent_skip_install is defined and maestro_agent_skip_install == false
+
+
 - name: Install Maestro exporter
   tags:
     - maestro
