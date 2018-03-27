@@ -1,6 +1,6 @@
 ---
 # vars file for ansible-maestro-java
-maestro_worker_dependencies: wget, tar, unzip
-maestro_exporter_dependencies: wget, tar, unzip
-maestro_inspector_dependencies: wget, tar, unzip
-maestro_agent_dependencies: wget, tar, unzip
+maestro_worker_dependencies: wget, tar, unzip, java-1.8.0-openjdk-devel
+maestro_exporter_dependencies: wget, tar, unzip, java-1.8.0-openjdk-devel
+maestro_inspector_dependencies: wget, tar, unzip, java-1.8.0-openjdk-devel
+maestro_agent_dependencies: wget, tar, unzip, java-1.8.0-openjdk-devel
