@@ -41,4 +41,4 @@
   become: true
   become_user: "{{ maestro_user }}"
   command: "{{ maestro_agent_install_dest }}/{{ maestro_agent_install_link }}/bin/maestro-agent-service restart"
-  listen: "restart maestro inspector service"
+  listen: "restart maestro agent service"
