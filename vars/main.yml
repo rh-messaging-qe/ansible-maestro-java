@@ -1,4 +1,17 @@
 ---
+maestro_worker_install_link: maestro-worker
+maestro_worker_download_dest: /tmp/
+
+maestro_exporter_install_link: maestro-exporter
+maestro_exporter_download_dest: /tmp/
+
+maestro_inspector_install_link: maestro-inspector
+maestro_inspector_download_dest: /tmp/
+
+maestro_agent_install_link: maestro-agent
+maestro_agent_download_dest: /tmp/
+
+
 # vars file for ansible-maestro-java
 maestro_worker_dependencies: wget, tar, unzip, java-1.8.0-openjdk-devel
 maestro_exporter_dependencies: wget, tar, unzip, java-1.8.0-openjdk-devel
