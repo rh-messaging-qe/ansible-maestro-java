@@ -5,6 +5,7 @@ maestro_url: mqtt://localhost:1883
 
 maestro_timezone: Europe/Prague
 
+maestro_download_validate_certs: yes
 maestro_worker_download_url: "{{ lookup('env','MAESTRO_WORKER_DOWNLOAD_URL') | default('', true) }}"
 maestro_worker_install_dest: "/home/{{ maestro_user }}/"
 maestro_worker_skip_install: false

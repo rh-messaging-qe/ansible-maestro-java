@@ -19,6 +19,7 @@
     url: "{{ maestro_worker_download_url }}"
     dest: "{{ maestro_worker_download_dest }}/{{ maestro_worker_download_url | basename}}"
     force: yes
+    validate_certs: "{{ maestro_download_validate_certs }}"
   register: dist_get
 
 - name: Unzip downloaded distribution to {{ maestro_worker_install_dest }}
