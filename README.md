@@ -32,6 +32,8 @@ Variables controlling the configuration of the worker.
 | `maestro_worker_log_dir` |  {{ maestro_worker_install_dest }}/log | Test log directory |
 | `maestro_worker_role` | sender | Worker role (either sender or receiver) |
 | `maestro_worker_restart_server` | true | Whether to automatically restart the worker after deployment |
+| `maestro_worker_jvm_mem_opts` | null | JVM and GC memory settings for the worker |
+
 
 
 Role Variables: exporter

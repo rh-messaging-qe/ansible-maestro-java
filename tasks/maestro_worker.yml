@@ -62,6 +62,17 @@
     group: "{{ maestro_user }}"
     mode: 0755
 
+- name: Configure maestro java JVM
+  tags:
+    - maestro
+    - configure
+  template:
+    src: templates/maestro-worker.jvm.conf.j2
+    dest: "{{ maestro_worker_install_dest }}/{{ maestro_worker_install_link }}/config/maestro-worker.jvm.conf"
+    owner: "{{ maestro_user }}"
+    group: "{{ maestro_user }}"
+    mode: 0755
+
 - name: Configure maestro java
   tags:
     - maestro
