@@ -42,3 +42,11 @@
   become_user: "{{ maestro_user }}"
   command: "{{ maestro_agent_install_dest }}/{{ maestro_agent_install_link }}/bin/maestro-agent-service restart"
   listen: "restart maestro agent service"
+
+
+- name: restart maestro reports service
+  when: maestro_reports_restart_server is defined and maestro_reports_restart_server == true
+  become: true
+  become_user: "{{ maestro_user }}"
+  command: "{{ maestro_reports_install_dest }}/{{ maestro_reports_install_link }}/bin/maestro-reports-tool-service restart"
+  listen: "restart maestro reports service"

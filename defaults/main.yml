@@ -34,4 +34,8 @@ maestro_agent_skip_install: true
 maestro_agent_log_dir: "{{ maestro_agent_install_dest }}/log"
 maestro_agent_restart_server: true
 
+maestro_reports_download_url: "{{ lookup('env','MAESTRO_REPORTS_DOWNLOAD_URL') | default('', true) }}"
+maestro_reports_install_dest: "/home/{{ maestro_user }}/"
+maestro_reports_skip_install: false
+maestro_reports_data_dir: "{{ maestro_reports_install_dest }}/data"
 

@@ -59,3 +59,12 @@
     - exporter
   include: maestro_exporter.yml
   when: maestro_exporter_skip_install is defined and maestro_exporter_skip_install == false
+
+
+- name: Install Maestro reports
+  tags:
+    - maestro
+    - java
+    - reports
+  include: maestro_reports.yml
+  when: maestro_reports_skip_install is defined and maestro_reports_skip_install == false
