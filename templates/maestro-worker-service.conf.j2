@@ -1,18 +1,8 @@
 # The URL of the Maestro broker
 MAESTRO_BROKER="{{ maestro_url }}"
 
-# The sender worker
-MAESTRO_SENDER_WORKER="org.maestro.worker.jms.JMSSenderWorker"
-
-# The receiver worker (uncomment this and comment the variable above if
-# if you are configuring a receiver worker)
-MAESTRO_RECEIVER_WORKER="org.maestro.worker.jms.JMSReceiverWorker"
-
 # The log directory
 MAESTRO_LOG_DIR="/home/{{ maestro_user }}/log/"
-
-# The role: either "sender" or "receiver" for Maestro Java
-MAESTRO_WORKER_ROLE="{{ maestro_worker_role }}"
 
 # If set will override local hostname detection
 # MAESTRO_LOCAL_HOSTNAME=""
