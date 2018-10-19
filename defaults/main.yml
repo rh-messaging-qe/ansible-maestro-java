@@ -38,4 +38,5 @@ maestro_reports_download_url: "{{ lookup('env','MAESTRO_REPORTS_DOWNLOAD_URL') |
 maestro_reports_install_dest: "/home/{{ maestro_user }}/"
 maestro_reports_skip_install: false
 maestro_reports_data_dir: "{{ maestro_reports_install_dest }}/data"
+maestro_reports_restart_server: true
 
