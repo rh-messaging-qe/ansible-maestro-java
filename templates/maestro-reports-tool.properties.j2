@@ -30,7 +30,7 @@ maestro.reports.db.type={{ maestro_reports_db_type | default('internal') }}
 maestro.reports.driver={{ maestro_reports_driver | default('org.h2.Driver') }}
 
 # Connection URL
-maestro.reports.datasource.url={{ maestro_reports_data_source_url |  defaults('jdbc:h2:~/.maestro/reports.db') }}
+maestro.reports.datasource.url={{ maestro_reports_data_source_url |  default('jdbc:h2:~/.maestro/reports.db') }}
 
 ######
 ## External MySQL database configuration
