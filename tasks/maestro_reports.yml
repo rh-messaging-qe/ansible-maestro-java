@@ -62,24 +62,24 @@
     group: "{{ maestro_user }}"
     mode: 0755
 
-# - name: Configure maestro java JVM
-#   tags:
-#     - maestro
-#     - configure
-#   template:
-#     src: templates/maestro-reports-tool.jvm.conf.j2
-#     dest: "{{ maestro_reports_install_dest }}/{{ maestro_reports_install_link }}/config/maestro-reports-tool.jvm.conf"
-#     owner: "{{ maestro_user }}"
-#     group: "{{ maestro_user }}"
-#     mode: 0755
-
-- name: Configure maestro java
+- name: Configure maestro java reports service
   tags:
     - maestro
     - configure
   template:
     src: templates/maestro-reports-tool-service.conf.j2
     dest: "{{ maestro_reports_install_dest }}/{{ maestro_reports_install_link }}/config/maestro-reports-tool-service.conf"
+    owner: "{{ maestro_user }}"
+    group: "{{ maestro_user }}"
+    mode: 0755
+
+- name: Configure maestro java reports tool
+  tags:
+    - maestro
+    - configure
+  template:
+    src: templates/maestro-reports-tool.properties.j2
+    dest: "{{ maestro_reports_install_dest }}/{{ maestro_reports_install_link }}/config/maestro-reports-tool.properties"
     owner: "{{ maestro_user }}"
     group: "{{ maestro_user }}"
     mode: 0755

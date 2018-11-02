@@ -39,4 +39,4 @@ maestro_reports_install_dest: "/home/{{ maestro_user }}/"
 maestro_reports_skip_install: true
 maestro_reports_data_dir: "{{ maestro_reports_install_dest }}/data"
 maestro_reports_restart_server: true
-
+# Some variables are defined in the maestro-reports-tool.properties
